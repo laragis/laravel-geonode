@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \TungTT\LaravelGeoNode\LaravelGeoNode
  */
-class LaravelGeoNode extends Facade
+class GeoNode extends Facade
 {
     protected static function getFacadeAccessor()
     {
