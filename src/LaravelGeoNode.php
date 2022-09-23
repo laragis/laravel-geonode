@@ -2,23 +2,24 @@
 
 namespace TungTT\LaravelGeoNode;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 
 class LaravelGeoNode
 {
-    protected User $user;
     public string|null $accessToken;
     public string $url;
     public string|null $userId;
     public string $baseUrl;
+    protected $user;
 
     public function __construct()
     {
         $appUser = auth()->user();
-        $geonodeAccount = $appUser?->currentConnectedAccount;
+        $this->user = $appUser?->currentConnectedAccount;
 
-        $this->userId = optional($geonodeAccount)->provider_id;
-        $this->accessToken = optional($geonodeAccount)->token;
+        $this->userId = optional($this->user)->provider_id;
+        $this->accessToken = optional($this->user)->token;
         $this->baseUrl = config('geonode.url');
     }
 
@@ -28,6 +29,14 @@ class LaravelGeoNode
 
     public function getAccessToken($accessToken = null){
         return $accessToken ?? $this->accessToken;
+    }
+
+    public function user(){
+        return $this->user;
+    }
+
+    public function tokenExpired(){
+        return Carbon::parse($this->user->expires_at) < Carbon::now();
     }
 
     public function getUrl(string $url = ''){
