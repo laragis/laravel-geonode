@@ -24,7 +24,7 @@ class EnsureGeoNodeTokenIsValid extends AuthenticateSession
             $request->session()->flush();
 
             if ($request->expectsJson()) {
-                return response()->json(['error' => 'Unauthenticated.'], 401);
+                return response()->json(['error' => 'Token của bạn đã hết hạn. Vui lòng đăng nhập lại'], 401);
             }
 
             return redirect()->guest(RouteServiceProvider::HOME);
