@@ -12,6 +12,7 @@ class LaravelGeoNodeServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-geonode')
+            ->hasRoute('web')
             ->hasConfigFile();
     }
 }
