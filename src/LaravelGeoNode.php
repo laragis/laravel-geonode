@@ -2,6 +2,8 @@
 
 namespace TungTT\LaravelGeoNode;
 
+use App\Models\ConnectedAccount;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 
@@ -31,7 +33,9 @@ class LaravelGeoNode
         return $accessToken ?? $this->accessToken;
     }
 
-    public function user(){
+    public function user($accessToken = null){
+        if($accessToken) return ConnectedAccount::firstWhere('token', $accessToken);
+
         return $this->user;
     }
 
